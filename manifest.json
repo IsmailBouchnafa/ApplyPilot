@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "ApplyPilot — Pracuj Agent",
+  "version": "0.1.1",
+  "description": "Safety-first, one-at-a-time Pracuj.pl application workflow.",
+  "action": {
+    "default_title": "Open ApplyPilot",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": ["storage", "tabs", "alarms", "notifications"],
+  "host_permissions": ["https://www.pracuj.pl/*", "https://pracuj.pl/*", "https://*.pracuj.pl/*", "http://127.0.0.1:8787/*", "http://localhost:8787/*"],
+  "content_scripts": [
+    {
+      "matches": ["https://www.pracuj.pl/*", "https://pracuj.pl/*", "https://*.pracuj.pl/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "options_ui": {
+    "page": "dashboard.html",
+    "open_in_tab": true
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; connect-src 'self' http://127.0.0.1:8787 http://localhost:8787"
+  }
+}

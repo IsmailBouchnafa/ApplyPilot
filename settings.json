@@ -1,0 +1,24 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "/^node --check background\\.js; node --check content\\.js; node --check dashboard\\.js; node --check popup\\.js$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^node --check content\\.js; node -e \"const m=require\\('\\./manifest\\.json'\\); if\\(m\\.version!=='0\\.1\\.1'\\) process\\.exit\\(1\\); console\\.log\\(m\\.version\\)\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^@'\nconst fs=require\\('fs'\\),vm=require\\('vm'\\);\nlet store=\\{\\}; const listeners=\\{\\};\nconst chrome=\\{storage:\\{local:\\{get:async\\(k\\)=>\\(\\{\\[k\\]:store\\[k\\]\\}\\),set:async\\(o\\)=>Object\\.assign\\(store,o\\)\\}\\},tabs:\\{onUpdated:\\{addListener:f=>listeners\\.updated=f\\},onRemoved:\\{addListener:f=>listeners\\.removed=f\\},query:async\\(\\)=>\\[\\],create:async\\(\\)=>\\(\\{id:9\\}\\),update:async\\(\\)=>\\{\\},sendMessage:async\\(\\)=>\\(\\{ok:true\\}\\)\\},runtime:\\{onInstalled:\\{addListener:f=>listeners\\.installed=f\\},onMessage:\\{addListener:f=>listeners\\.message=f\\},getURL:p=>'chrome-extension://test/'\\+p\\},alarms:\\{onAlarm:\\{addListener:f=>listeners\\.alarm=f\\},\\},notifications:\\{create:async\\(\\)=>\\{\\}\\}\\};\nconst ctx=\\{chrome,console,crypto:\\{randomUUID:\\(\\)=> 'test-id'\\},structuredClone:global\\.structuredClone,setTimeout,clearTimeout,fetch,URL\\}; vm\\.createContext\\(ctx\\); vm\\.runInContext\\(fs\\.readFileSync\\('background\\.js','utf8'\\),ctx\\);\nconst send=\\(message,sender=\\{\\}\\)=>new Promise\\(resolve=>listeners\\.message\\(message,sender,resolve\\)\\);\n\\(async\\(\\)=>\\{const badCampaign=await send\\(\\{type:'SAVE_CAMPAIGN',campaign:\\{id:'bad',searchUrl:'https://evilpracuj\\.pl/praca\\?x=1'\\}\\}\\); const badSettings=await send\\(\\{type:'SAVE_SETTINGS',settings:\\{apiBaseUrl:'https://example\\.com'\\}\\}\\); const good=await send\\(\\{type:'SAVE_SETTINGS',settings:\\{apiBaseUrl:'http://127\\.0\\.0\\.1:8787'\\}\\}\\); console\\.log\\(JSON\\.stringify\\(\\{badCampaign,badSettings,good\\}\\)\\);\\}\\)\\(\\)\n'@ \\| node$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^node --check background\\.js; node --check dashboard\\.js; @'\nconst fs=require\\('fs'\\),vm=require\\('vm'\\); let store=\\{\\},listeners=\\{\\}; const chrome=\\{storage:\\{local:\\{get:async k=>\\(\\{\\[k\\]:store\\[k\\]\\}\\),set:async o=>Object\\.assign\\(store,o\\)\\}\\},tabs:\\{onUpdated:\\{addListener:f=>\\{\\}\\},onRemoved:\\{addListener:f=>\\{\\}\\},query:async\\(\\)=>\\[\\],create:async\\(\\)=>\\(\\{id:1\\}\\),update:async\\(\\)=>\\{\\},sendMessage:async\\(\\)=>\\(\\{ok:true\\}\\)\\},runtime:\\{onInstalled:\\{addListener:f=>\\{\\}\\},onMessage:\\{addListener:f=>listeners\\.message=f\\},getURL:p=>p\\},alarms:\\{onAlarm:\\{addListener:f=>\\{\\} \\}\\},notifications:\\{create:async\\(\\)=>\\{\\}\\}\\}; const c=\\{chrome,console,crypto:\\{randomUUID:\\(\\)=> 'x'\\},structuredClone:global\\.structuredClone,setTimeout,clearTimeout,URL\\}; vm\\.createContext\\(c\\); vm\\.runInContext\\(fs\\.readFileSync\\('background\\.js','utf8'\\),c\\); const send=m=>new Promise\\(r=>listeners\\.message\\(m,\\{\\},r\\)\\); \\(async\\(\\)=>\\{const cases=\\[\\['https://www\\.pracuj\\.pl/praca\\?phrase=data',true\\],\\['https://www\\.pracuj\\.pl/praca/data-analyst;kw',true\\],\\['https://www\\.pracuj\\.pl/praca/data-analyst,oferta,123',true\\],\\['https://pracuj\\.pl/jobs\\?query=data',true\\],\\['http://www\\.pracuj\\.pl/praca\\?x=1',false\\],\\['https://evilpracuj\\.pl/praca\\?x=1',false\\],\\['https://www\\.example\\.com/praca\\?x=1',false\\]\\]; for\\(const \\[url,expected\\] of cases\\)\\{const r=await send\\(\\{type:'SAVE_CAMPAIGN',campaign:\\{id:'x',searchUrl:url\\}\\}\\); if\\(r\\.ok!==expected\\) throw new Error\\(url\\+' => '\\+JSON\\.stringify\\(r\\)\\);\\} console\\.log\\('campaign URL validation: PASS'\\)\\}\\)\\(\\)\n'@ \\| node$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^node --check background\\.js; node --check content\\.js; node --check dashboard\\.js; node --check popup\\.js; node -e \"const m=require\\('\\./manifest\\.json'\\); if\\(m\\.manifest_version!==3\\|\\|m\\.version!=='0\\.1\\.1'\\) process\\.exit\\(1\\); console\\.log\\('all-entry-points-and-manifest: PASS'\\)\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
+}
